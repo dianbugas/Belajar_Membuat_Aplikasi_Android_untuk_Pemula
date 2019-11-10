@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Bahasa Pemrograman Populer 2019</string>
+    <string name="language">Java</string>
+    <string name="content">Content</string>
+    <string name="author">Author</string>
+    <string name="author_name">Muhammad Ardiansyah</string>
+    <string name="since">Rilis</string>
+    <string name="since_number">2019</string>
+    <string name="tags">Untuk</string>
+    <string name="tags_title">Android</string>
+</resources>
