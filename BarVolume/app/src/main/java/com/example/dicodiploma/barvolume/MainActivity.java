@@ -24,16 +24,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         edtLength = findViewById(R.id.edt_length);
         btnCalculate = findViewById(R.id.btn_calculate);
         tvResult = findViewById(R.id.tv_result);
+
+        if (savedInstanceState != null) {
+            String result = savedInstanceState.getString(STATE_RESULT);
+            tvResult.setText(result);
+        }
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_calculate) {
+            //trim() untuk menghiraukan spasi
+            //.toString()untuk mengambil isi dari sebuah EditText
             String inputLength = edtLength.getText().toString().trim();
             String inputWidth = edtWidth.getText().toString().trim();
             String inputHeight = edtHeight.getText().toString().trim();
+
             boolean isEmptyFields = false;
             boolean isInvalidDouble = false;
+
+            //isEmpty untuk cek apakah inputan kosong
             if (TextUtils.isEmpty(inputLength)) {
                 isEmptyFields = true;
                 edtLength.setError("Field ini tidak boleh kosong");
@@ -46,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 isEmptyFields = true;
                 edtHeight.setError("Field ini tidak boleh kosong");
             }
+
+            //vaiabel input yg bukan angka
             Double length = toDouble(inputLength);
             Double width = toDouble(inputWidth);
             Double height = toDouble(inputHeight);
@@ -61,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 isInvalidDouble = true;
                 edtHeight.setError("Field ini harus berupa nomer yang valid");
             }
+            //untuk menampilkan data ke edit
             if (!isEmptyFields && !isInvalidDouble) {
                 double volume = length * width * height;
                 tvResult.setText(String.valueOf(volume));
@@ -75,5 +88,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (NumberFormatException e) {
             return null;
         }
+    }
+
+    //code untuk perintah lanscape
+    private static final String STATE_RESULT = "state_result";
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(STATE_RESULT, tvResult.getText().toString());
     }
 }
